@@ -1,0 +1,17 @@
+{
+  "roundtrip": "serialize/deserialize or encode/decode preserves the declared behavior.",
+  "input-immutability": "APIs do not mutate caller input unless documented.",
+  "invalid-input": "Invalid input fails predictably and does not corrupt state.",
+  "package-boundary": "Public imports do not accidentally pull forbidden dependencies or heavy modules.",
+  "request-shape": "Generated requests match the declared protocol contract.",
+  "response-decoding": "Supported responses decode to typed values; unsupported responses fail clearly.",
+  "retry-idempotence": "Retries do not duplicate irreversible effects in the local model.",
+  "replay": "An emitted event, patch, or operation log replays to the same state.",
+  "idempotence": "Duplicate messages or operations are safe where the contract requires it.",
+  "convergence": "Replicas reach the same final observable state after healing or replay.",
+  "out-of-order": "Out-of-order delivery preserves final state or fails by contract.",
+  "resource-limit": "Large or adversarial inputs respect explicit time, size, or count caps.",
+  "parse-print-parse": "Printing and reparsing preserves the meaningful program structure.",
+  "optimization-equivalence": "Optimized output is semantically equivalent to unoptimized output.",
+  "diagnostic-stability": "Errors and warnings stay deterministic enough for tests and users."
+}

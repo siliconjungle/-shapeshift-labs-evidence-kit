@@ -1,0 +1,43 @@
+{
+  "name": "@shapeshift-labs/evidence-kit",
+  "version": "0.1.0",
+  "description": "Agent-operable evidence harnesses for JS/TS research ingestion, tests, fuzzing, benchmarks, package boundaries, and decision records.",
+  "type": "module",
+  "bin": {
+    "evidence-kit": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./cli": "./src/cli.mjs"
+  },
+  "files": [
+    "src",
+    "scripts",
+    "schemas",
+    "data",
+    "templates",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check src/cli.mjs && node --check src/index.mjs && node --check templates/fetch-research.mjs && node --check templates/startup-import.mjs && node --check templates/package-boundary-gates.mjs",
+    "smoke": "node src/cli.mjs inspect --json"
+  },
+  "keywords": [
+    "agent",
+    "research",
+    "fuzzing",
+    "benchmarks",
+    "testing",
+    "typescript",
+    "javascript",
+    "codex"
+  ],
+  "license": "MIT",
+  "author": "james addison",
+  "engines": {
+    "node": ">=20"
+  }
+}

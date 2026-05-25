@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shapeshift-labs.github.io/evidence-kit/schemas/corpus-case.schema.json",
+  "title": "Agent Evidence Corpus",
+  "type": "object",
+  "required": ["version", "cases"],
+  "properties": {
+    "version": { "type": "integer" },
+    "generatedBy": { "type": "string" },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "input", "expected"],
+        "properties": {
+          "name": { "type": "string" },
+          "family": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "input": true,
+          "expected": true,
+          "options": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

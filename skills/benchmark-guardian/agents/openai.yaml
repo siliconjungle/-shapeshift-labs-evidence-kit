@@ -1,0 +1,3 @@
+display_name: Benchmark Guardian
+short_description: Ground JS/TS performance claims in benchmark evidence.
+default_prompt: Evaluate this performance-sensitive JS/TS change with focused benchmarks and structured result JSON.

@@ -1,0 +1,3 @@
+display_name: Evidence Bootstrap
+short_description: Add the full JS/TS evidence and research-ingestion harness to a project.
+default_prompt: Inspect this JS/TS repo and add the full evidence stack: research ingestion, fuzzing, corpus, benchmarks, startup checks, package-boundary gates, perf search/docs, and iteration notes.

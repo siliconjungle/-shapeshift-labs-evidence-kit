@@ -1,0 +1,3 @@
+display_name: Package Boundary Guardian
+short_description: Protect JS/TS public exports, imports, and package budgets.
+default_prompt: Review or update this JS/TS package boundary with export, dependency, startup, and size checks.

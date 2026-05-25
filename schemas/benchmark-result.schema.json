@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shapeshift-labs.github.io/evidence-kit/schemas/benchmark-result.schema.json",
+  "title": "Agent Evidence Benchmark Result",
+  "type": "object",
+  "required": ["name", "generatedAt", "node", "rows"],
+  "properties": {
+    "name": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "node": { "type": "string" },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "fixture", "library", "status"],
+        "properties": {
+          "category": { "type": "string" },
+          "fixture": { "type": "string" },
+          "library": { "type": "string" },
+          "status": { "type": "string" },
+          "medianUs": { "type": "number" },
+          "p95Us": { "type": "number" },
+          "ops": { "type": "number" },
+          "bytes": { "type": "number" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

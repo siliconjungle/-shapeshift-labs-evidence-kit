@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shapeshift-labs.github.io/evidence-kit/schemas/iteration-note.schema.json",
+  "title": "Agent Evidence Iteration Note Metadata",
+  "type": "object",
+  "required": ["tags", "verdict", "decision"],
+  "properties": {
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "verdict": {
+      "type": "string",
+      "enum": ["accepted", "rejected", "regressed", "needs-revisit", "measured", "reference", "logged"]
+    },
+    "decision": { "type": "string" }
+  },
+  "additionalProperties": true
+}

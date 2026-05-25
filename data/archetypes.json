@@ -1,0 +1,22 @@
+{
+  "library": {
+    "description": "Reusable JS/TS package with public API contracts.",
+    "defaultInvariants": ["roundtrip", "input-immutability", "invalid-input", "package-boundary"],
+    "defaultBenchmarks": ["hot-api", "startup-import"]
+  },
+  "api-client": {
+    "description": "Client package that serializes requests and handles remote responses.",
+    "defaultInvariants": ["request-shape", "response-decoding", "retry-idempotence", "invalid-input"],
+    "defaultBenchmarks": ["encode-decode", "cold-start"]
+  },
+  "state-sync": {
+    "description": "State, cache, CRDT, collaboration, or event-log package.",
+    "defaultInvariants": ["replay", "idempotence", "convergence", "out-of-order", "resource-limit"],
+    "defaultBenchmarks": ["commit", "replay", "sync-drain"]
+  },
+  "compiler-parser": {
+    "description": "Parser, compiler, transformer, code generator, or query planner.",
+    "defaultInvariants": ["parse-print-parse", "optimization-equivalence", "diagnostic-stability"],
+    "defaultBenchmarks": ["parse", "transform", "print"]
+  }
+}

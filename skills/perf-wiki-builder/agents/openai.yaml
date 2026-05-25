@@ -1,0 +1,3 @@
+display_name: Perf Wiki Builder
+short_description: Maintain searchable JS/TS evidence notes and benchmark maps.
+default_prompt: Search and update the target repository's perf/evidence wiki from iteration notes, research notes, fetch manifests, and benchmark results.

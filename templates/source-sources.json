@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "topic": "{{name}}",
+  "archetype": "{{archetype}}",
+  "generatedBy": "@shapeshift-labs/evidence-kit",
+  "sources": []
+}

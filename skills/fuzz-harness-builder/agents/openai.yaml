@@ -1,0 +1,3 @@
+display_name: Fuzz Harness Builder
+short_description: Build seedable, replayable JS/TS fuzzers.
+default_prompt: Add or improve a deterministic fuzzer for this JS/TS project, including corpus promotion for failures.

@@ -1,0 +1,3 @@
+display_name: Domain Evidence Designer
+short_description: Turn a generic JS/TS evidence harness into domain-specific sources, invariants, corpora, fuzzers, and benchmarks.
+default_prompt: Adapt this JS/TS project’s evidence harness to its real domain by creating source lists, invariants, corpus seeds, fuzz oracles, benchmark fixtures, and source-pass notes.

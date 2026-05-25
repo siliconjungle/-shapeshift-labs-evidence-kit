@@ -1,0 +1,22 @@
+{
+  "js-ts-library": {
+    "primarySources": ["official repository", "npm metadata", "issue/regression corpus", "benchmark suite"],
+    "transferTargets": ["public API invariants", "startup/import budget", "package-boundary gate", "hot-path benchmark"]
+  },
+  "parser-compiler": {
+    "primarySources": ["language fixtures", "spec tests", "differential parser projects", "fuzzer corpora"],
+    "transferTargets": ["parse/print corpus", "invalid-input fuzzer", "optimization-equivalence benchmark"]
+  },
+  "state-sync": {
+    "primarySources": ["CRDT papers", "database replication systems", "message queue failure schedules", "local-first repositories"],
+    "transferTargets": ["replay fuzzer", "convergence fuzzer", "out-of-order corpus", "sync-drain benchmark"]
+  },
+  "codec-serializer": {
+    "primarySources": ["format specifications", "compression corpora", "binary codec libraries", "cross-language test vectors"],
+    "transferTargets": ["roundtrip corpus", "malformed-input fuzzer", "size/speed benchmark", "compatibility decision note"]
+  },
+  "ui-runtime": {
+    "primarySources": ["browser/runtime benchmarks", "interaction traces", "accessibility fixtures", "real user performance incidents"],
+    "transferTargets": ["interaction benchmark", "render stability test", "startup gate", "trace replay fixture"]
+  }
+}
