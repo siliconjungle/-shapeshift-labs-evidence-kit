@@ -1,0 +1,3 @@
+display_name: Target Evidence Designer
+short_description: Turn a generic JS/TS evidence harness into target-owned sources, contracts, corpora, fuzzers, and benchmarks.
+default_prompt: Adapt this JS/TS project’s evidence harness to its real target contracts by creating source lists, corpus seeds, fuzz oracles, benchmark fixtures, and source-pass notes from project evidence.

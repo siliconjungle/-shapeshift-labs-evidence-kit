@@ -16,7 +16,7 @@ npm run docs:perf:search -- <topic terms>
 npm run research:list
 ```
 
-2. Define the question: what weakness or workload are we trying to learn about? If the target project still lacks domain-specific invariants, corpus seeds, or benchmark fixtures, use `domain-evidence-designer` first.
+2. Define the question: what weakness or workload are we trying to learn about? If the target project still lacks target-owned contracts, corpus seeds, or benchmark fixtures, use `target-evidence-designer` first.
 
 3. Add or update a repeatable fetcher and source config:
 

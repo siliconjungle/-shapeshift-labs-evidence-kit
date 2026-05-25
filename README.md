@@ -5,8 +5,8 @@ ShapeShift Labs Evidence Kit is a full-complexity JS/TS repository template for 
 It is designed for AI coding agents and maintainers who want every target repository to answer:
 
 - What external sources were fetched, where were they cached, and which commit/artifact was inspected?
-- What invariants define correctness?
-- Which fuzzers exercise those invariants?
+- What target-owned contracts define correctness?
+- Which fuzzers exercise those contracts?
 - Which benchmarks justify performance claims?
 - Which failures became replayable corpus cases?
 - Which ideas were accepted, rejected, or deferred?
@@ -30,7 +30,7 @@ node src/cli.mjs init --dry-run
 
 ```sh
 evidence-kit inspect [--json]
-evidence-kit init [--archetype library] [--language js|ts] [--dry-run]
+evidence-kit init [--language js|ts] [--dry-run]
 evidence-kit add-fuzzer [--name core] [--language js|ts]
 evidence-kit add-benchmark [--name core] [--language js|ts]
 evidence-kit add-source-fetcher [--name source-pass]
@@ -44,7 +44,7 @@ evidence-kit research:fetch <name> [fetch args...]
 `init` creates the full evidence harness by default:
 
 - `test/fuzz/core-fuzz.mjs` or `.ts`
-- `test/fixtures/corpus.json`
+- `test/fixtures/corpus.json` with no pre-seeded cases
 - `benchmarks/core-benchmark.mjs` or `.ts`
 - `benchmarks/startup-import.mjs`
 - `benchmarks/package-boundary-gates.mjs`
@@ -67,7 +67,7 @@ The kit treats source mining as a repeatable pipeline, not as free-form note wri
 3. Cache external repos under `research/repos/<topic>/` and datasets or metadata under `benchmarks/data/<topic>/`.
 4. Write the fetch manifest to `research/repos/<topic>/manifest.json`.
 5. Have the agent inspect the cache and write `research/*-sources.md` plus `iterations/*-source-pass.md`.
-6. Convert accepted ideas into tests, fuzzers, corpus cases, benchmark fixtures, package-boundary gates, or budget changes.
+6. Convert accepted ideas into target-owned tests, fuzzers, corpus cases, benchmark fixtures, package-boundary gates, or budget changes.
 
 Supported fetch source types are `git`, `url`, `npm`, `file`, and `inline`. The generated fetcher does not ship with project-specific URLs; each target repo owns its source list.
 
@@ -76,7 +76,7 @@ Supported fetch source types are `git`, `url`, `npm`, `file`, and `inline`. The 
 The `skills/` directory contains Codex skills that teach an AI agent how to apply the toolkit:
 
 - `evidence-bootstrap`
-- `domain-evidence-designer`
+- `target-evidence-designer`
 - `fuzz-harness-builder`
 - `benchmark-guardian`
 - `perf-wiki-builder`
@@ -97,7 +97,7 @@ Benchmarks should write structured JSON rows:
   "rows": [
     {
       "category": "core",
-      "fixture": "roundtrip",
+      "fixture": "target-owned-fixture",
       "library": "project",
       "status": "ok",
       "medianUs": 12.3,
@@ -115,11 +115,11 @@ Fuzzers should be seedable, replayable, and capable of writing repro fixtures. F
 Projects should start with all evidence surfaces present:
 
 - **Research ingestion evidence**: repeatable source fetchers, source config, local cache, manifest, and source-pass notes.
-- **Fuzz evidence**: seedable fuzzer, checked-in corpus, repro-writing path.
+- **Fuzz evidence**: seedable fuzzer scaffold, target-owned corpus, repro-writing path.
 - **Benchmark evidence**: structured benchmark JSON under `benchmarks/results/*latest.json`.
 - **Scope evidence**: file-hash based benchmark scope recommendations.
 - **Perf wiki evidence**: searchable iteration/research notes, fetcher artifacts, and benchmark maps.
 - **Boundary evidence**: startup/import, reachable bytes, `npm pack --dry-run`, export, and dependency-direction gates.
 - **Full gate**: `npm run evidence:full`.
 
-The generated gates use conservative generic budgets. Tighten those budgets as soon as the target repository’s public API and hot paths are clear.
+The package deliberately ships only mechanisms. Target projects must supply their own sources, contracts, corpus cases, and benchmark fixtures.

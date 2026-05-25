@@ -6,7 +6,6 @@ type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 
 interface CorpusCase {
   name: string;
-  family?: string;
   tags?: string[];
   input: Json;
   expected: Json;
@@ -18,18 +17,25 @@ const seed = readInt(args.seed, 0x5eed);
 const corpusPath = path.resolve(args.corpus || 'test/fixtures/corpus.json');
 const corpus = JSON.parse(fs.readFileSync(corpusPath, 'utf8')) as { cases: CorpusCase[] };
 const rng = mulberry32(seed);
+let executed = 0;
 
 for (const seedCase of corpus.cases || []) runCase(seedCase, 'corpus:' + seedCase.name);
 for (let i = 0; i < cases; i++) {
-  const seedCase = pick(corpus.cases || [], rng) || { name: 'generated', input: {}, expected: {} };
-  runCase(mutateCase(seedCase, i, rng), 'generated:' + i);
+  const generated = buildGeneratedCase(i, rng);
+  if (generated === null) break;
+  runCase(generated, 'generated:' + i);
 }
 
-console.log('{{name}} fuzz passed cases=' + cases + ' seed=' + seed);
+if (executed === 0) {
+  console.log('{{name}} fuzz placeholder: add target-owned corpus cases or implement buildGeneratedCase()');
+} else {
+  console.log('{{name}} fuzz passed executed=' + executed + ' requested=' + cases + ' seed=' + seed);
+}
 
 function runCase(testCase: CorpusCase, id: string): void {
   try {
     assert.deepStrictEqual(runSubject(testCase.input), testCase.expected, 'case mismatch ' + id);
+    executed++;
   } catch (error) {
     if (args.writeRepro) writeRepro(args.writeRepro, testCase, id, error);
     throw error;
@@ -38,41 +44,20 @@ function runCase(testCase: CorpusCase, id: string): void {
 
 function runSubject(input: Json): Json {
   // Replace this adapter with the project API under test.
-  return cloneJson(input);
+  return input;
 }
 
-function mutateCase(seedCase: CorpusCase, index: number, rng: () => number): CorpusCase {
-  const input = cloneJson(seedCase.input);
-  const expected = runSubject(input);
-  if (input && typeof input === 'object' && !Array.isArray(input) && expected && typeof expected === 'object' && !Array.isArray(expected)) {
-    input.__fuzzIndex = index;
-    expected.__fuzzIndex = index;
-  }
-  if (Array.isArray(input) && Array.isArray(expected)) {
-    input.push(Math.floor(rng() * 1000));
-    expected.push(input[input.length - 1]);
-  }
-  return {
-    name: seedCase.name + ':mutated-' + index,
-    family: seedCase.family || '{{name}}',
-    tags: [...(seedCase.tags || []), 'mutated'],
-    input,
-    expected
-  };
+function buildGeneratedCase(index: number, rng: () => number): CorpusCase | null {
+  // Replace this with target-owned generation once the project contract is known.
+  void index;
+  void rng;
+  return null;
 }
 
 function writeRepro(outPath: string, testCase: CorpusCase, id: string, error: unknown): void {
   const resolved = path.resolve(outPath);
   fs.mkdirSync(path.dirname(resolved), { recursive: true });
   fs.writeFileSync(resolved, JSON.stringify({ id, error: String(error), case: testCase }, null, 2) + '\n');
-}
-
-function cloneJson<T extends Json>(value: T): T {
-  return JSON.parse(JSON.stringify(value)) as T;
-}
-
-function pick<T>(items: T[], rng: () => number): T | null {
-  return items.length === 0 ? null : items[Math.floor(rng() * items.length)] || null;
 }
 
 function mulberry32(seed: number): () => number {

@@ -7,7 +7,6 @@
   "properties": {
     "version": { "type": "integer" },
     "topic": { "type": "string" },
-    "archetype": { "type": "string" },
     "generatedBy": { "type": "string" },
     "sources": {
       "type": "array",

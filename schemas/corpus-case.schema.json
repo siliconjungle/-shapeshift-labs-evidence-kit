@@ -14,7 +14,6 @@
         "required": ["name", "input", "expected"],
         "properties": {
           "name": { "type": "string" },
-          "family": { "type": "string" },
           "tags": { "type": "array", "items": { "type": "string" } },
           "input": true,
           "expected": true,

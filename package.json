@@ -1,6 +1,6 @@
 {
   "name": "@shapeshift-labs/evidence-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Agent-operable evidence harnesses for JS/TS research ingestion, tests, fuzzing, benchmarks, package boundaries, and decision records.",
   "type": "module",
   "bin": {
@@ -14,7 +14,6 @@
     "src",
     "scripts",
     "schemas",
-    "data",
     "templates",
     "skills",
     "README.md",

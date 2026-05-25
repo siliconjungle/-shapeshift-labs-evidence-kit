@@ -127,7 +127,7 @@ function printSearch(report, json) {
 function printHelp() {
   console.log(`Usage:
   evidence-kit inspect [--json]
-  evidence-kit init [--archetype library] [--language js|ts] [--dry-run]
+  evidence-kit init [--language js|ts] [--dry-run]
   evidence-kit add-fuzzer [--name core] [--language js|ts]
   evidence-kit add-benchmark [--name core] [--language js|ts]
   evidence-kit add-source-fetcher [--name source-pass]

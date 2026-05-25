@@ -21,21 +21,19 @@ If using this repository directly:
 node /path/to/agent-evidence-kit/src/cli.mjs inspect --json
 ```
 
-2. Classify the project as `library`, `api-client`, `state-sync`, or `compiler-parser`. If uncertain, start with `library`.
-
-3. Initialize the full harness:
+2. Initialize the full harness:
 
 ```sh
-npx evidence-kit init --archetype library --language js
+npx evidence-kit init --language js
 ```
 
 Use `--language ts` for TypeScript projects. Use `--dry-run` first if the worktree is dirty or unfamiliar.
 
-4. Read the generated files and adapt only the project-specific adapters and budgets. Keep the seed/cases/out/check flags intact.
+3. Read the generated files and adapt only the project-specific adapters and budgets. Keep the seed/cases/out/check flags intact.
 
-5. Replace placeholder evidence with a domain plan. If the target contract is not obvious, use `domain-evidence-designer` before deep fuzz or benchmark work.
+4. Replace placeholder evidence with a target-owned evidence plan. If the target contract is not obvious, use `target-evidence-designer` before deep fuzz or benchmark work.
 
-6. Run:
+5. Run:
 
 ```sh
 npm run test:evidence
@@ -46,13 +44,13 @@ npm run docs:perf:search -- evidence
 npm run evidence:full
 ```
 
-7. Configure at least one source-pass topic when source mining is relevant:
+6. Configure at least one source-pass topic when source mining is relevant:
 
 ```sh
 npm run research:fetch -- source-pass
 ```
 
-8. Record the outcome in `iterations/`. Include what passed, what failed, what was fetched, what was kept, what was rejected, and what remains deferred.
+7. Record the outcome in `iterations/`. Include what passed, what failed, what was fetched, what was kept, what was rejected, and what remains deferred.
 
 ## Rules
 
@@ -60,4 +58,4 @@ npm run research:fetch -- source-pass
 - Use repeatable fetchers and manifests before writing source-pass conclusions.
 - If the package has no public export surface yet, keep the generated package-boundary gate pointed at source entry files until exports exist.
 - Do not claim speed, safety, or broad coverage unless a current command backs that exact claim.
-- Promote any reduced failure into `test/fixtures/corpus.json`.
+- Promote any reduced failure into the target project's corpus file.

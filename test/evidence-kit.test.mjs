@@ -27,12 +27,14 @@ test('initializes and runs a JS evidence harness', () => {
     }
   }, null, 2) + '\n');
 
-  const init = initEvidenceHarness(dir, { language: 'js', archetype: 'library' });
+  const init = initEvidenceHarness(dir, { language: 'js' });
   assert.ok(init.created.includes('test/fuzz/core-fuzz.mjs'));
   assert.ok(init.created.includes('benchmarks/fetch-source-pass-research.mjs'));
   assert.ok(init.created.includes('research/source-pass-sources.json'));
   assert.ok(init.updated.includes('package.json scripts.fuzz'));
   assert.ok(init.updated.includes('package.json scripts.research:source-pass:fetch'));
+  const corpus = JSON.parse(fs.readFileSync(path.join(dir, 'test/fixtures/corpus.json'), 'utf8'));
+  assert.deepEqual(corpus.cases, []);
 
   const inspected = inspectProject(dir);
   assert.equal(inspected.language, 'js');
@@ -49,10 +51,10 @@ test('initializes and runs a JS evidence harness', () => {
     topic: 'source-pass',
     sources: [
       {
-        name: 'inline-fixture',
+        name: 'inline-source',
         type: 'inline',
-        text: 'transfer this into a local corpus or benchmark fixture',
-        fileName: 'inline-fixture.txt'
+        text: 'target-owned source material',
+        fileName: 'inline-source.txt'
       }
     ]
   }, null, 2) + '\n');
@@ -61,7 +63,7 @@ test('initializes and runs a JS evidence harness', () => {
     stdio: 'pipe'
   });
   assert.ok(fs.existsSync(path.join(dir, 'research/repos/source-pass/manifest.json')));
-  assert.ok(fs.existsSync(path.join(dir, 'benchmarks/data/source-pass/inline-fixture.txt')));
+  assert.ok(fs.existsSync(path.join(dir, 'benchmarks/data/source-pass/inline-source.txt')));
   execFileSync(process.execPath, [
     'benchmarks/package-boundary-gates.mjs',
     '--check',

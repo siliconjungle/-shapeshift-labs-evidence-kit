@@ -1,7 +1,7 @@
 ---
-tags: [iteration, evidence, {{archetype}}]
-verdict: accepted
-decision: Bootstrapped the full project evidence harness with seedable fuzzing, structured benchmark output, startup checks, package-boundary gates, scope checks, and generated perf documentation.
+tags: [iteration, evidence]
+verdict: measured
+decision: Bootstrapped the project evidence harness with placeholder fuzzing, structured benchmark output, startup checks, package-boundary gates, scope checks, source ingestion, and generated perf documentation. Target-owned contracts, corpus cases, and benchmark fixtures still need to be added.
 ---
 
 # {{title}}
@@ -10,12 +10,12 @@ Date: {{date}}
 
 ## Goal
 
-Create the full evidence loop for a JS/TS {{archetype}} project.
+Create the full evidence loop for a JS/TS project without assuming its domain contracts.
 
 ## Implemented
 
-- Added a seedable fuzzer and corpus fixture.
-- Added a structured benchmark that can write `benchmarks/results/*latest.json`.
+- Added a seedable fuzzer scaffold and empty corpus file.
+- Added a structured benchmark scaffold that can write `benchmarks/results/*latest.json`.
 - Added startup/import and package-boundary gates.
 - Added benchmark-scope and full evidence gate scripts.
 - Added a repeatable source-pass fetcher, source config, research note, and perf documentation target.
@@ -34,6 +34,6 @@ Create the full evidence loop for a JS/TS {{archetype}} project.
 
 ## Deferred
 
-- Project-specific invariant expansion.
-- Failure minimization beyond replayable corpus cases.
-- Tighter package startup and boundary budgets.
+- Target-owned contracts and corpus cases.
+- Target-owned fuzz generator and oracle.
+- Target-owned benchmark fixtures and budgets.

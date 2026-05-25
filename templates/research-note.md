@@ -1,7 +1,7 @@
 ---
-tags: [research, evidence, {{archetype}}]
+tags: [research, evidence]
 verdict: reference
-decision: Reference note for project evidence sources and future source-pass work.
+decision: Reference note for target-owned evidence sources and future source-pass work.
 ---
 
 # {{title}}
@@ -13,11 +13,10 @@ Date: {{date}}
 - `research/source-pass-sources.json`
 - `benchmarks/fetch-source-pass-research.mjs`
 - `research/repos/source-pass/manifest.json`
-- Existing unit tests, public API documentation, production incidents, and regression fixtures.
+- Add target-owned sources before treating this note as evidence.
 
 ## Transfer Candidates
 
-- Turn repeated bug reports into corpus cases.
-- Turn performance-sensitive paths into structured benchmark fixtures.
-- Turn external source patterns into local tests, fuzzers, benchmark fixtures, startup gates, or package-boundary checks.
+- Record source names, URLs, commits or hashes, and local cache paths.
+- Convert accepted source ideas into target-owned tests, fuzzers, benchmark fixtures, startup gates, or package-boundary checks.
 - Record accepted, rejected, and deferred ideas in iteration notes.

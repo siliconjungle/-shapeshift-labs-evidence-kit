@@ -57,7 +57,6 @@ export function inspectProject(rootDir = process.cwd()) {
 
 export function initEvidenceHarness(rootDir = process.cwd(), options = {}) {
   const language = normalizeLanguage(options.language || inspectProject(rootDir).language);
-  const archetype = options.archetype || 'library';
   const dryRun = Boolean(options.dryRun);
   const created = [];
   const updated = [];
@@ -74,15 +73,8 @@ export function initEvidenceHarness(rootDir = process.cwd(), options = {}) {
   write('test/fixtures/corpus.json', JSON.stringify({
     version: 1,
     generatedBy: '@shapeshift-labs/evidence-kit',
-    cases: [
-      {
-        name: 'identity-object',
-        family: archetype,
-        tags: ['smoke', 'identity'],
-        input: { value: 1 },
-        expected: { value: 1 }
-      }
-    ]
+    note: 'Target project must add corpus cases that exercise its own contracts.',
+    cases: []
   }, null, 2) + '\n');
 
   const fuzzerPath = language === 'ts' ? 'test/fuzz/core-fuzz.ts' : 'test/fuzz/core-fuzz.mjs';
@@ -94,17 +86,14 @@ export function initEvidenceHarness(rootDir = process.cwd(), options = {}) {
   write('benchmarks/fetch-source-pass-research.mjs', renderTemplate('fetch-research.mjs', { name: 'source-pass' }));
   write('iterations/000-bootstrap-evidence.md', renderTemplate('iteration-note.md', {
     title: 'Evidence Harness Bootstrap',
-    date: new Date().toISOString().slice(0, 10),
-    archetype
+    date: new Date().toISOString().slice(0, 10)
   }));
   write('research/evidence-source-map.md', renderTemplate('research-note.md', {
     title: 'Evidence Source Map',
-    date: new Date().toISOString().slice(0, 10),
-    archetype
+    date: new Date().toISOString().slice(0, 10)
   }));
   write('research/source-pass-sources.json', renderTemplate('source-sources.json', {
-    name: 'source-pass',
-    archetype
+    name: 'source-pass'
   }));
   write('research/repos/.gitkeep', '');
   write('benchmarks/data/.gitkeep', '');
@@ -146,7 +135,7 @@ export function initEvidenceHarness(rootDir = process.cwd(), options = {}) {
     }
   }
 
-  return { rootDir, language, archetype, dryRun, created, updated };
+  return { rootDir, language, dryRun, created, updated };
 }
 
 export function addFuzzer(rootDir = process.cwd(), options = {}) {
@@ -184,7 +173,7 @@ export function addResearchFetcher(rootDir = process.cwd(), options = {}) {
     created.push(relativePath);
   };
   write(`benchmarks/fetch-${name}-research.mjs`, renderTemplate('fetch-research.mjs', { name }));
-  write(`research/${name}-sources.json`, renderTemplate('source-sources.json', { name, archetype: options.archetype || 'library' }));
+  write(`research/${name}-sources.json`, renderTemplate('source-sources.json', { name }));
   return { rootDir, name, dryRun: Boolean(options.dryRun), created, skipped };
 }
 

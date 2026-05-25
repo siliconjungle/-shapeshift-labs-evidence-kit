@@ -11,23 +11,29 @@ const seed = readInt(args.seed, 0x5eed);
 const corpusPath = path.resolve(repoRoot, args.corpus || 'test/fixtures/corpus.json');
 const corpus = JSON.parse(fs.readFileSync(corpusPath, 'utf8'));
 const rng = mulberry32(seed);
+let executed = 0;
 
 for (const seedCase of corpus.cases || []) {
   runCase(seedCase, 'corpus:' + seedCase.name);
 }
 
 for (let i = 0; i < cases; i++) {
-  const seedCase = pick(corpus.cases || [], rng) || { name: 'generated', input: {}, expected: {} };
-  const fuzzCase = mutateCase(seedCase, i, rng);
+  const fuzzCase = buildGeneratedCase(i, rng);
+  if (fuzzCase === null) break;
   runCase(fuzzCase, 'generated:' + i);
 }
 
-console.log('{{name}} fuzz passed cases=' + cases + ' seed=' + seed);
+if (executed === 0) {
+  console.log('{{name}} fuzz placeholder: add target-owned corpus cases or implement buildGeneratedCase()');
+} else {
+  console.log('{{name}} fuzz passed executed=' + executed + ' requested=' + cases + ' seed=' + seed);
+}
 
 function runCase(testCase, id) {
   try {
     const actual = runSubject(testCase.input);
     assert.deepStrictEqual(actual, testCase.expected, 'case mismatch ' + id);
+    executed++;
   } catch (error) {
     if (args.writeRepro) writeRepro(args.writeRepro, testCase, id, error);
     throw error;
@@ -36,27 +42,14 @@ function runCase(testCase, id) {
 
 function runSubject(input) {
   // Replace this adapter with the project API under test.
-  return cloneJson(input);
+  return input;
 }
 
-function mutateCase(seedCase, index, rng) {
-  const input = cloneJson(seedCase.input);
-  const expected = runSubject(input);
-  if (input && typeof input === 'object' && !Array.isArray(input)) {
-    input.__fuzzIndex = index;
-    expected.__fuzzIndex = index;
-  }
-  if (Array.isArray(input)) {
-    input.push(Math.floor(rng() * 1000));
-    expected.push(input[input.length - 1]);
-  }
-  return {
-    name: seedCase.name + ':mutated-' + index,
-    family: seedCase.family || '{{name}}',
-    tags: [...(seedCase.tags || []), 'mutated'],
-    input,
-    expected
-  };
+function buildGeneratedCase(index, rng) {
+  // Replace this with target-owned generation once the project contract is known.
+  void index;
+  void rng;
+  return null;
 }
 
 function writeRepro(outPath, testCase, id, error) {
@@ -67,15 +60,6 @@ function writeRepro(outPath, testCase, id, error) {
     error: error && error.stack ? error.stack : String(error),
     case: testCase
   }, null, 2) + '\n');
-}
-
-function cloneJson(value) {
-  return value === undefined ? undefined : JSON.parse(JSON.stringify(value));
-}
-
-function pick(items, rng) {
-  if (!Array.isArray(items) || items.length === 0) return null;
-  return items[Math.floor(rng() * items.length)];
 }
 
 function mulberry32(seed) {
